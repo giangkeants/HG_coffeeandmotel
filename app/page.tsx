@@ -1,3 +1,4 @@
+import dynamic from 'next/dynamic';
 import { Header } from '@/components/Header';
 import { Hero } from '@/components/Hero';
 import { About } from '@/components/About';
@@ -7,7 +8,19 @@ import { Gallery } from '@/components/Gallery';
 import { Contact } from '@/components/Contact';
 import { Footer } from '@/components/Footer';
 import { FloatingButtons } from '@/components/FloatingButtons';
+import { MobileHeader } from '@/components/mobile/MobileHeader';
+import { MobileHero } from '@/components/mobile/MobileHero';
+import { MobileAbout } from '@/components/mobile/MobileAbout';
+import { MobileRooms } from '@/components/mobile/MobileRooms';
+import { MobileCoffeeShop } from '@/components/mobile/MobileCoffeeShop';
+import { MobileGallery } from '@/components/mobile/MobileGallery';
+import { MobileContact } from '@/components/mobile/MobileContact';
+import { MobileFooter } from '@/components/mobile/MobileFooter';
+import { MobileStickyBar } from '@/components/mobile/MobileStickyBar';
+import { gallery } from '@/data/gallery';
 import { site, telHref, zaloHref, messengerHref, facebookHref } from '@/data/site';
+
+const Lightbox = dynamic(() => import('@/components/Lightbox').then((m) => m.Lightbox));
 
 const jsonLd = {
   '@context': 'https://schema.org',
@@ -41,17 +54,35 @@ const jsonLd = {
 export default function HomePage() {
   return (
     <>
-      <Header />
-      <main id="main">
-        <Hero />
-        <About />
-        <Rooms />
-        <CoffeeShop />
-        <Gallery />
-        <Contact />
-      </main>
-      <Footer />
-      <FloatingButtons />
+      <div className="md:hidden">
+        <MobileHeader />
+        <main id="main">
+          <MobileHero />
+          <MobileAbout />
+          <MobileRooms />
+          <MobileCoffeeShop />
+          <MobileGallery />
+          <MobileContact />
+        </main>
+        <MobileFooter />
+        <MobileStickyBar />
+      </div>
+
+      <div className="hidden md:block">
+        <Header />
+        <main id="main-desktop">
+          <Hero />
+          <About />
+          <Rooms />
+          <CoffeeShop />
+          <Gallery />
+          <Contact />
+        </main>
+        <Footer />
+        <FloatingButtons />
+      </div>
+
+      <Lightbox items={gallery} />
 
       <script
         type="application/ld+json"

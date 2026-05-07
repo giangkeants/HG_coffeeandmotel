@@ -19,10 +19,17 @@
     font-feature-settings: 'cv02', 'cv03', 'cv04', 'cv11';
     -webkit-font-smoothing: antialiased;
     text-rendering: optimizeLegibility;
+    overflow-x: hidden;
   }
 
   section {
     scroll-margin-top: 5rem;
+  }
+
+  @media (max-width: 767px) {
+    section {
+      scroll-margin-top: 4rem;
+    }
   }
 
   ::selection {
@@ -61,5 +68,42 @@
 
   .heading-display {
     @apply font-display text-3xl leading-tight text-coffee-900 sm:text-4xl md:text-5xl;
+  }
+
+  .nav-link {
+    @apply relative rounded-full px-3 py-2 text-coffee-800 transition-colors hover:text-coffee-900;
+  }
+  .nav-link::after {
+    content: '';
+    position: absolute;
+    left: 50%;
+    bottom: 4px;
+    height: 2px;
+    width: 0;
+    background-color: theme('colors.coffee.700');
+    border-radius: 999px;
+    transform: translateX(-50%);
+    transition: width 220ms ease;
+  }
+  .nav-link:hover::after,
+  .nav-link:focus-visible::after {
+    width: 22px;
+  }
+
+  .text-stroke {
+    -webkit-text-stroke: 1px theme('colors.coffee.900');
+    color: transparent;
+  }
+  .text-stroke-cream {
+    -webkit-text-stroke: 1px theme('colors.cream.50');
+    color: transparent;
+  }
+
+  .divider-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 999px;
+    background-color: theme('colors.coffee.400');
+    display: inline-block;
   }
 }
